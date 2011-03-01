@@ -34,7 +34,7 @@
     "\\>"))
 
 (defconst ruby-block-beg-keywords
-  '("class" "module" "def" "if" "unless" "when" "while" "until" "for" "begin" "do")
+  '("class" "module" "def" "if" "unless" "case" "while" "until" "for" "begin" "do")
   "Keywords at the beginning of blocks.")
 
 (defconst ruby-block-beg-re
@@ -47,7 +47,7 @@
 
 (defconst ruby-indent-beg-re
   (concat "\\(\\s *" (regexp-opt '("class" "module" "def") t) "\\)\\|"
-          (regexp-opt '("if" "unless" "when" "while" "until" "for" "begin")))
+          (regexp-opt '("if" "unless" "case" "while" "until" "for" "begin")))
   "Regexp to match where the indentation gets deeper.")
 
 (defconst ruby-modifier-beg-keywords
@@ -767,9 +767,7 @@ and `\\' when preceded by `?'."
             (goto-char parse-start) (back-to-indentation))
           (setq indent (ruby-indent-size (current-column) (nth 2 state))))
          (t
-          (if (nth 3 state) (goto-char (nth 3 state))
-            (goto-char parse-start) (back-to-indentation))
-          (setq indent (ruby-indent-size (current-column) (nth 2 state)))))) ; ruby-indent-level
+          (setq indent (+ (current-column) ruby-indent-level)))))
        
        ((and (nth 2 state) (< (nth 2 state) 0)) ; in negative nest
         (setq indent (ruby-indent-size (current-column) (nth 2 state)))))
