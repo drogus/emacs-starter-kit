@@ -10,6 +10,22 @@
 (autoload 'whitespace-mode           "whitespace" "Toggle whitespace visualization."        t)
 (autoload 'whitespace-toggle-options "whitespace" "Toggle local `whitespace-mode' options." t)
 (add-hook 'ruby-mode-hook 'whitespace-mode)
+(add-hook 'js2-mode-hook 'whitespace-mode)
+
+(add-to-list 'load-path "~/.emacs.d/ruby-mode")
+(autoload 'js2-mode "js2" nil t)
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+
+(custom-set-variables
+ '(js2-auto-indent-p t)
+ '(js2-bounce-indent-p nil)
+ '(js2-enter-indents-newline t)
+ '(js2-indent-on-enter-key t)
+ '(js2-mirror-mode t)
+ '(js2-use-ast-for-indentation-p t)
+ '(kill-wspace-mode t)
+ '(show-trailing-whitespace t)
+)
 
 (setq cua-enable-cua-keys nil)
 (cua-mode t)
@@ -30,5 +46,6 @@
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 (global-set-key "\C-c\C-m" 'execute-extended-command)
 
-(defalias 'qrr 'query-replace-regexp)
+(global-set-key "\C-c\C-n" 'whitespace-cleanup)
 
+(defalias 'qrr 'query-replace-regexp)

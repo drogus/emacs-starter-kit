@@ -1,0 +1,3 @@
+[submodule "ruby-mode"]
+	path = ruby-mode
+	url = https://github.com/qoobaa/ruby-mode.git
