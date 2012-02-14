@@ -76,3 +76,23 @@
   (mapc #'load (directory-files user-specific-dir nil ".*el$")))
 
 ;;; init.el ends here
+(add-to-list 'load-path "~/.emacs.d/vendor/coffee-mode")
+(require 'coffee-mode)
+
+(add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
+(add-to-list 'auto-mode-alist '("Cakefile" . coffee-mode))
+
+(defun coffee-custom ()
+  "coffee-mode-hook"
+  (set (make-local-variable 'tab-width) 2))
+
+(add-hook 'coffee-mode-hook
+            '(lambda () (coffee-custom)))
+
+(setq-default tab-width 2)
+
+(setq load-path (cons  "/usr/local/Cellar/erlang/R14B01/lib/erlang/lib/tools-2.6.6.2/emacs" load-path))
+(setq erlang-root-dir "/usr/local/otp")
+(setq exec-path (cons "/usr/local/otp/bin" exec-path))
+(require 'erlang-start)
+(put 'upcase-region 'disabled nil)

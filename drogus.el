@@ -41,7 +41,6 @@
 
 (global-set-key "\C-w" 'backward-kill-word)
 (global-set-key "\C-x\C-k" 'kill-region)
-(global-set-key "\C-c\C-k" 'kill-region)
 
 (global-set-key "\C-x\C-m" 'execute-extended-command)
 (global-set-key "\C-c\C-m" 'execute-extended-command)
@@ -49,3 +48,17 @@
 (global-set-key "\C-c\C-n" 'whitespace-cleanup)
 
 (defalias 'qrr 'query-replace-regexp)
+
+(set-char-table-range auto-fill-chars 10 nil)
+
+(global-set-key "\C-c\C-k" 'copy-region-as-kill)
+
+(defun copy-line (&optional arg)
+  (interactive "P")
+  (toggle-read-only 1)
+  (kill-line arg)
+  (beginning-of-line)
+  (toggle-read-only 0))
+
+(setq-default kill-read-only-ok t)
+(global-set-key "\M-k" 'copy-line)
